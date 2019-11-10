@@ -95,29 +95,31 @@ int bfs() {
 			y = frontSp.pos[1];
 			x += move[i][0];
 			y += move[i][1];
-			if ((-1 < x < 5) && (-1 < y < 5) && (!visitedMap[x][y])) {
-				if ((x == endPoint[0]) && (y == endPoint[1])) {
-					return step++;
-				}
-				if (map[x][y]) {
-					if (frontSp.call != 1) {
-						curP.call = 1;
+			if ((-1 < x < 5) && (-1 < y < 5)) {
+				if (!visitedMap[x][y]) {
+					if ((x == endPoint[0]) && (y == endPoint[1])) {
+						return step++;
+					}
+					if (map[x][y]) {
+						if (frontSp.call != 1) {
+							curP.call = 1;
+								curP.pos[0] = x;
+								curP.pos[1] = y;
+								curP.step = step + 1;
+								InsertQueue(q, curP);
+							visitedMap[x][y] = 1;
+						}
+					}
+					else {
+						curP.call = frontSp.call;
 						curP.pos[0] = x;
 						curP.pos[1] = y;
 						curP.step = step + 1;
 						InsertQueue(q, curP);
 						visitedMap[x][y] = 1;
 					}
-				} else {
-					curP.call = frontSp.call;
-					curP.pos[0] = x;
-					curP.pos[1] = y;
-					curP.step = step + 1;
-					InsertQueue(q, curP);
-					visitedMap[x][y] = 1;
 				}
 			}
-			
 		}
 		step++;
 		DeleteQueue(q);
